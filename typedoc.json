@@ -13,6 +13,7 @@
   "intentionallyNotExported": [
     "AsyncQueue",
     "ScheduleDynamicNode",
-    "NodeContextOptions"
+    "NodeContextOptions",
+    "WorkflowInstructionScope"
   ]
 }

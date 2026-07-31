@@ -16,5 +16,6 @@
  * their node modules here (the LLM agent wrapper in Part 7).
  */
 import './nodes/function_node.js';
+import './nodes/llm_agent_wrapper.js';
 import './nodes/parallel_worker.js';
 import './nodes/tool_node.js';
