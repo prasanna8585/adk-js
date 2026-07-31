@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.6.0](https://github.com/google/adk-js/compare/devtools-v1.5.0...devtools-v1.6.0) (2026-07-31)
+
+
+### Features
+
+* CLI-level A2A authenticator for the dev server and Cloud Run deploy (Part 2/2) ([#559](https://github.com/google/adk-js/issues/559)) ([0c0bba2](https://github.com/google/adk-js/commit/0c0bba2cc4639ff89e4fa517ace25e34babb64b0))
+
+
+### Bug Fixes
+
+* **cli:** check isCancel before coercing the project prompt in adk create ([#570](https://github.com/google/adk-js/issues/570)) ([c6f8b2f](https://github.com/google/adk-js/commit/c6f8b2f7482ab18a66d1b0c726e4b524802d2b8b))
+* make streaming and stateDelta optional on RunAgentRequest ([#585](https://github.com/google/adk-js/issues/585)) ([1df47e9](https://github.com/google/adk-js/commit/1df47e9733e0f2b0aac1bcbda24b7f1a8ae73d9b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @google/adk bumped from ^1.5.0 to ^1.6.0
+
 ## [1.5.0](https://github.com/google/adk-js/compare/devtools-v1.4.0...devtools-v1.5.0) (2026-07-29)
 
 

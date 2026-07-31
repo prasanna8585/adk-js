@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.6.0](https://github.com/google/adk-js/compare/adk-v1.5.0...adk-v1.6.0) (2026-07-31)
+
+
+### Features
+
+* Add bearerTokenUserBuilder for A2A authentication (Part 1/2) ([#562](https://github.com/google/adk-js/issues/562)) ([f077722](https://github.com/google/adk-js/commit/f077722d54528c609c95fed51019fc013093a8e5))
+* CLI-level A2A authenticator for the dev server and Cloud Run deploy (Part 2/2) ([#559](https://github.com/google/adk-js/issues/559)) ([0c0bba2](https://github.com/google/adk-js/commit/0c0bba2cc4639ff89e4fa517ace25e34babb64b0))
+* **tools:** add getUserChoiceTool and requestInputTool for parity with adk-python ([#506](https://github.com/google/adk-js/issues/506)) ([03abf76](https://github.com/google/adk-js/commit/03abf761e97ef2c2902e776886b1a8d2a653a527))
+* Validate tool callback response types and prevent state event pollution ([#505](https://github.com/google/adk-js/issues/505)) ([b99f21b](https://github.com/google/adk-js/commit/b99f21b8a549d9b4e1255ae4233d9f691eeb9fe3))
+
+
+### Bug Fixes
+
+* accept the derived allowedTools alias in skill frontmatter validation ([#560](https://github.com/google/adk-js/issues/560)) ([fcfd043](https://github.com/google/adk-js/commit/fcfd04363ebbbea03e7a7c32d11f05358fdb4a4e))
+* parse JSON bodies only in the toA2a server (drop express.urlencoded) ([#558](https://github.com/google/adk-js/issues/558)) ([605b469](https://github.com/google/adk-js/commit/605b46980cabd2a8928e08d3fc3669a1de13c24c))
+* pass -NoProfile to spawned PowerShell and /D to cmd.exe in UnsafeLocalCodeExecutor ([#566](https://github.com/google/adk-js/issues/566)) ([b56761b](https://github.com/google/adk-js/commit/b56761bfb0d9b0d139cc95ba1a6d1803732507dd))
+* reject zip-slip entries and non-bare skill names when loading zipped skills (adk-python parity) ([#584](https://github.com/google/adk-js/issues/584)) ([4fe80b0](https://github.com/google/adk-js/commit/4fe80b0ef7e5df1803c76e8681cd9740fcf6ebf5))
+* treat @google/genai ApiError 404 as session not found in VertexAiSessionService ([#567](https://github.com/google/adk-js/issues/567)) ([5331c77](https://github.com/google/adk-js/commit/5331c771cde1c3af8ef1d87e44d41161c9919721))
+
 ## [1.5.0](https://github.com/google/adk-js/compare/adk-v1.4.0...adk-v1.5.0) (2026-07-29)
 
 
