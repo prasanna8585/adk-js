@@ -20,7 +20,10 @@ import {
   UsageMetadata,
 } from '@google/genai';
 import {Event as AdkEvent, createEvent} from '../events/event.js';
-import {createEventActions} from '../events/event_actions.js';
+import {
+  createEventActions,
+  type EventActions,
+} from '../events/event_actions.js';
 import {randomUUID} from '../utils/env_aware_utils.js';
 import {
   A2AEvent,
@@ -260,6 +263,18 @@ const PEER_SETTABLE_ACTION_FIELDS: ReadonlySet<string> = new Set(['escalate']);
 function createAdkEventFromMetadata(a2aEvent: A2AEvent): AdkEvent {
   const metadata = a2aEvent.metadata || {};
 
+  // Only fields in PEER_SETTABLE_ACTION_FIELDS may be restored from
+  // metadata a remote A2A peer controls. Every other action field either
+  // mutates the caller's own session or drives the caller's own control
+  // flow (e.g. `transferToAgent`, see llm_agent.ts), so it must never be
+  // rebuilt from peer-supplied data. The Partial<EventActions> annotation
+  // keeps key-checking against the real type: a typo'd or wrong-typed key
+  // here fails to compile instead of silently being dropped by the filter
+  // below.
+  const candidateActions: Partial<EventActions> = {
+    escalate: !!metadata[A2AMetadataKeys.ESCALATE],
+  };
+
   return createEvent({
     branch: metadata[A2AMetadataKeys.BRANCH] as string,
     author: metadata[A2AMetadataKeys.AUTHOR] as string,
@@ -277,19 +292,15 @@ function createAdkEventFromMetadata(a2aEvent: A2AEvent): AdkEvent {
       string,
       unknown
     >,
-    // Only fields in PEER_SETTABLE_ACTION_FIELDS may be restored from
-    // metadata a remote A2A peer controls. Every other action field either
-    // mutates the caller's own session or drives the caller's own control
-    // flow (e.g. `transferToAgent`, see llm_agent.ts), so it must never be
-    // rebuilt from peer-supplied data. Filtering through an allowlist here
-    // (rather than just omitting the unsafe field) means a future action
-    // field is unsafe-by-default: adding it to `candidateActions` alone
-    // does nothing until it's also added to the allowlist.
+    // Filtering candidateActions through the allowlist (rather than just
+    // omitting the unsafe field above) means a future action field is
+    // unsafe-by-default: adding it to candidateActions alone does nothing
+    // until it's also added to PEER_SETTABLE_ACTION_FIELDS.
     actions: createEventActions(
       Object.fromEntries(
-        Object.entries({
-          escalate: !!metadata[A2AMetadataKeys.ESCALATE],
-        }).filter(([key]) => PEER_SETTABLE_ACTION_FIELDS.has(key)),
+        Object.entries(candidateActions).filter(([key]) =>
+          PEER_SETTABLE_ACTION_FIELDS.has(key),
+        ),
       ),
     ),
   });
